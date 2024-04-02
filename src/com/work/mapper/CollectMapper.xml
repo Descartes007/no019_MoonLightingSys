@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.work.mapper.CollectMapper">
+	
+	<resultMap type="com.work.pojo.Collect" id="BaseResultMap">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="forum_id" property="forumId" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<select id="getCollectList" resultMap="BaseResultMap">
+		select * from collect as c 
+		LEFT JOIN user as u ON c.user_id = u.user_id
+		LEFT JOIN forum as f ON c.forum_id = f.forum_id
+		where 1=1
+		<if test="collect.id != null">
+			and id like CONCAT('%',#{collect.id},'%')
+		</if>
+		<if test="collect.userId != null">
+			and c.user_id like CONCAT('%',#{collect.userId},'%')
+		</if>
+		<if test="collect.forumId != null">
+			and c.forum_id like CONCAT('%',#{collect.forumId},'%')
+		</if>
+		
+		order by c.create_time desc 
+		<if test="page != null and limit != null">
+			limit #{page},#{limit}
+		</if>
+	</select>
+	<select id="getCollectListCount" resultType="Integer">
+		select count(*) from collect  where 1=1
+		<if test="collect.id != null">
+			and id like CONCAT('%',#{collect.id},'%')
+		</if>
+		<if test="collect.userId != null">
+			and user_id like CONCAT('%',#{collect.userId},'%')
+		</if>
+		<if test="collect.forumId != null">
+			and forum_id like CONCAT('%',#{collect.forumId},'%')
+		</if>
+	</select>
+	<insert id="addCollect" useGeneratedKeys="true" keyProperty="collect.id" parameterType="com.work.pojo.Collect">
+		insert into
+		collect(user_id,forum_id,create_time)
+		values(#{collect.userId},#{collect.forumId},#{collect.createTime})
+	</insert>
+	
+	<select id="getCollectById" resultMap="BaseResultMap">
+		select * from collect where id = #{id}
+	</select>	
+	<delete id="deleteCollectById">
+		delete from collect where id = #{id}
+	</delete>
+		
+	<delete id="deleteMyCollect">
+		delete from collect where 
+		user_id = #{collect.userId} and forum_id = #{collect.forumId}
+	</delete>	
+	
+	
+</mapper>

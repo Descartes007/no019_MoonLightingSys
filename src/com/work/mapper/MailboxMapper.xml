@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.work.mapper.MailboxMapper">
+	
+	<resultMap type="com.work.pojo.Mailbox" id="BaseResultMap">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="getMailboxList" resultMap="BaseResultMap">
+		select * from mailbox f 
+		LEFT JOIN user u ON f.user_id = u.user_id
+		where 1=1
+		<if test="mailbox.id != null">
+			and id like CONCAT('%',#{mailbox.id},'%')
+		</if>
+		<if test="mailbox.title !=null and mailbox.title!=''">
+			and title like CONCAT('%',#{mailbox.title},'%')
+		</if>
+		order by f.create_time desc 
+		<if test="page != null and limit != null">
+			limit #{page},#{limit}
+		</if>
+	</select>
+	<select id="getMailboxListCount" resultType="Integer">
+		select count(*) from mailbox  where 1=1
+		<if test="mailbox.id != null">
+			and id like CONCAT('%',#{mailbox.id},'%')
+		</if>
+		<if test="mailbox.title !=null and mailbox.title!=''">
+			and title like CONCAT('%',#{mailbox.title},'%')
+		</if>
+	</select>
+	<insert id="addMailbox" useGeneratedKeys="true" keyProperty="mailbox.id" parameterType="com.work.pojo.Mailbox">
+		insert into
+		mailbox(user_id,title,content,image,create_time)
+		values(#{mailbox.userId},#{mailbox.title},#{mailbox.content},
+		#{mailbox.image},#{mailbox.createTime})
+	</insert>
+	<update id="updateMailbox" parameterType="com.work.pojo.Mailbox">
+		update mailbox
+		<trim prefix="set" suffixOverrides=",">
+			<if test="mailbox.title != null and mailbox.title != ''">title = #{mailbox.title},</if>
+			<if test="mailbox.content != null and mailbox.content != ''">content = #{mailbox.content},</if>
+			<if test="mailbox.image != null and mailbox.image != ''">image = #{mailbox.image},</if>
+		</trim>
+		where id = #{mailbox.id}
+	</update>
+	<select id="getMailboxById" resultMap="BaseResultMap">
+		select * from mailbox where id = #{id}
+	</select>	
+	<delete id="deleteMailboxById">
+		delete from mailbox where id = #{id}
+	</delete>	
+	
+</mapper>

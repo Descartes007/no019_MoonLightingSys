@@ -1,0 +1,158 @@
+.page{
+	width: 100%;
+	height: auto;
+}
+/*header begin*/
+.header{
+	width: 100%;
+	height: 140px;
+	background-color:#3F3F3F;
+}
+.header_1{
+	width: 100%;
+	height: 140px;
+	background-color:#3F3F3F;
+	position: fixed;
+	top:-40px;
+	z-index: 100;
+}
+/*header end*/
+
+/*div_personal  begin*/
+.div_personal{
+	width: 100%;
+	height: 800px;
+	background-color: #eef;
+}
+.div_zhong{
+	width: 1100px;
+	height: 800px;
+	margin: 0 auto;
+}
+
+.div_zhong_l{
+	width: 430px;
+	height: 780px;
+	background-color: #fff;
+	float: left;
+	margin-top: 20px;
+}
+.ul_zhong_l{
+	width: 410px;
+	height: auto;
+	margin-top: 20px;
+	margin-left: 10px;
+}
+.ul_zhong_l li{
+	width: 410px;
+	height: 35px;
+	border-bottom: 1px solid #eee;
+}
+.span_z_1{
+	display: inline-block;
+	width: 20px;
+	height: 35px;
+	font-size: 18px;
+	color: #333;
+	float: left;
+	padding-top: 5px;
+}
+.span_z_2{
+	display: inline-block;
+	width: 250px;
+	height: 35px;
+	float: left;
+	font-size: 18px;
+	color: #333;
+	overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+	cursor: pointer;
+	padding-top: 6px;
+}
+.span_z_3{
+	display: inline-block;
+	width: 110px;
+	height: 30px;
+	font-size: 16px;
+	color: #999;
+	float: right;
+	margin-top: 5px;
+	word-break: break-all;
+}
+
+/*分页  begin*/
+.ul_fenye{
+	width: 410px;
+	height: 40px;
+	margin-top: 20px;
+}
+.ul_fenye ul{
+	width: -moz-fit-content;
+    width: -webkit-fit-content;
+	width: fit-content;
+	margin: 0 auto;
+}
+.ul_fenye li{
+	width: 60px;
+	height: 40px;
+	display: inline-block;
+	float: left;
+}
+.ul_fenye li span{
+	width: 60px;
+	height: 30px;
+	display: block;
+	margin-top: 7px;
+	color: #333;
+}
+/*分页  end*/
+/*div_zhong_r   begin*/
+.div_zhong_r{
+	width: 650px;
+	height: 780px;
+	background-color: #fff;
+	float: left;
+	margin-left: 20px;
+	margin-top: 20px;
+}
+.div_zhong_r_r{
+	width: 610px;
+	height: 700px;
+	margin-left: 20px;
+	margin-top: 20px;
+}
+.div_zhong_r_r h3{
+	color: #333;
+}
+.div_zhong_r_r p{
+	text-indent: 2em;
+	width: 610px;
+	height: auto;
+	margin-top: 20px;
+	font-size: 18px;
+	line-height: 25px;
+	color: #333;
+	word-break: break-all;
+}
+.div_zhong_r_r span{
+	width: 220px;
+	height: auto;
+	float: right;
+	margin-top: 20px;
+	font-size: 18px;
+	color: #333;
+	word-break: break-all;
+}
+
+/*div_zhong_r   end*/
+
+/*banquan  begin*/
+.footer{
+	width: 100%;
+	height: 190px;
+	background-color: #eef;
+	padding-top: 50px;
+}
+/*banquan  end*/
+

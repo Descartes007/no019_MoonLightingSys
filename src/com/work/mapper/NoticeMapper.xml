@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.work.mapper.NoticeMapper">
+	<resultMap type="com.work.pojo.Notice" id="BaseResultMap">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="getNoticeList" resultMap="BaseResultMap">
+		select * from notice n 
+		LEFT JOIN user u ON n.user_id = u.user_id
+		where 1=1
+		<if test="notice.id != null">
+			and id like CONCAT('%',#{notice.id},'%')
+		</if>
+		<if test="notice.title !=null and notice.title!=''">
+			and title like CONCAT('%',#{notice.title},'%')
+		</if>
+		order by n.create_time desc 
+		<if test="page != null and limit != null">
+			limit #{page},#{limit}
+		</if>
+	</select>
+	<select id="getNoticeListCount" resultType="Integer">
+		select count(*) from notice  where 1=1
+		<if test="notice.id != null">
+			and id like CONCAT('%',#{notice.id},'%')
+		</if>
+		<if test="notice.title !=null and notice.title!=''">
+			and title like CONCAT('%',#{notice.title},'%')
+		</if>
+	</select>
+	<insert id="addNotice" useGeneratedKeys="true" keyProperty="notice.id" parameterType="com.work.pojo.Notice">
+		insert into
+		notice(user_id,title,content,image,create_time)
+		values(#{notice.userId},#{notice.title},#{notice.content},
+		#{notice.image},#{notice.createTime})
+	</insert>
+	<update id="updateNotice" parameterType="com.work.pojo.Notice">
+		update notice
+		<trim prefix="set" suffixOverrides=",">
+			<if test="notice.title != null and notice.title != ''">title = #{notice.title},</if>
+			<if test="notice.content != null and notice.content != ''">content = #{notice.content},</if>
+			<if test="notice.image != null and notice.image != ''">image = #{notice.image},</if>
+		</trim>
+		where id = #{notice.id}
+	</update>
+	<select id="getNoticeById" resultMap="BaseResultMap">
+		select * from notice where id = #{id}
+	</select>	
+	<delete id="deleteNoticeById">
+		delete from notice where id = #{id}
+	</delete>	
+	
+	
+	
+</mapper>

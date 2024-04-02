@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.work.mapper.ChatMapper">
+
+	<resultMap type="com.work.pojo.Chat" id="BaseResultMap">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+		<result column="is_look" property="isLook" jdbcType="INTEGER" />
+		<result column="is_remove_fa" property="isRemoveFa" jdbcType="INTEGER" />
+		<result column="is_remove_jie" property="isRemoveJie" jdbcType="INTEGER" />
+		<result column="chat_signal" property="chatSignal" jdbcType="VARCHAR" />
+		
+		<result column="user_id_fa" property="userIdFa" jdbcType="INTEGER" />
+		<result column="nick_name_fa" property="nickNameFa" jdbcType="VARCHAR" />
+		<result column="header_image_fa" property="headerImageFa" jdbcType="VARCHAR" />
+		
+		<result column="user_id_jie" property="userIdJie" jdbcType="INTEGER" />
+		<result column="nick_name_jie" property="nickNameJie" jdbcType="VARCHAR" />
+		<result column="header_image_jie" property="headerImageJie" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="getChatList" resultMap="BaseResultMap">
+		select c.*, f.user_id as user_id_fa, f.nick_name as nick_name_fa, f.header_image as header_image_fa,  
+		j.user_id as user_id_jie, j.nick_name as nick_name_jie, j.header_image as header_image_jie from chat as c 
+		LEFT JOIN user as f ON c.user_id_fa = f.user_id
+		LEFT JOIN user as j ON c.user_id_jie = j.user_id
+		where 1=1
+		<if test="chat.id != null">
+			and id like CONCAT('%',#{chat.id},'%')
+		</if>
+		<if test="chat.userIdFa != null">
+			and user_id_fa like CONCAT('%',#{chat.userIdFa},'%')
+		</if>
+		<if test="chat.userIdJie != null">
+			and user_id_jie like CONCAT('%',#{chat.userIdJie},'%')
+		</if>
+		<if test="chat.isLook !=null">
+			and is_look like CONCAT('%',#{chat.isLook},'%')
+		</if>
+		<if test="chat.isRemoveFa !=null">
+			and is_remove_fa like CONCAT('%',#{chat.isRemoveFa},'%')
+		</if>
+		<if test="chat.isRemoveJie !=null">
+			and is_remove_jie like CONCAT('%',#{chat.isRemoveJie},'%')
+		</if>
+		<if test="chat.chatSignal !=null and chat.chatSignal!=''">
+			and chat_signal like CONCAT('%',#{chat.chatSignal},'%')
+		</if>
+		order by c.create_time desc 
+		<if test="page != null and limit != null">
+			limit #{page},#{limit}
+		</if>
+	</select>
+	<select id="getChatListCount" resultType="Integer">
+		select count(*) from chat  where 1=1
+		<if test="chat.id != null">
+			and id like CONCAT('%',#{chat.id},'%')
+		</if>
+		<if test="chat.userIdFa != null">
+			and user_id_fa like CONCAT('%',#{chat.userIdFa},'%')
+		</if>
+		<if test="chat.userIdJie != null">
+			and user_id_jie like CONCAT('%',#{chat.userIdJie},'%')
+		</if>
+		<if test="chat.isLook !=null">
+			and f.is_look like CONCAT('%',#{chat.isLook},'%')
+		</if>
+		<if test="chat.isRemoveFa !=null">
+			and f.is_remove_fa like CONCAT('%',#{chat.isRemoveFa},'%')
+		</if>
+		<if test="chat.isRemoveJie !=null">
+			and f.is_remove_jie like CONCAT('%',#{chat.isRemoveJie},'%')
+		</if>
+		<if test="chat.chatSignal !=null and chat.chatSignal!=''">
+			and chat_signal like CONCAT('%',#{chat.chatSignal},'%')
+		</if>
+	</select>
+	<insert id="addChat" useGeneratedKeys="true" keyProperty="chat.id" parameterType="com.work.pojo.Chat">
+		insert into
+		chat(user_id_fa,user_id_jie,content,image,chat_signal,create_time)
+		values(#{chat.userIdFa},#{chat.userIdJie},#{chat.content},
+		#{chat.image},#{chat.chatSignal},#{chat.createTime})
+	</insert>
+	<update id="updateChat" parameterType="com.work.pojo.Chat">
+		update chat
+		<trim prefix="set" suffixOverrides=",">
+			<if test="chat.chatSignal != null and chat.chatSignal != ''">chat_signal = #{chat.chatSignal},</if>
+			<if test="chat.content != null and chat.content != ''">content = #{chat.content},</if>
+			<if test="chat.image != null and chat.image != ''">image = #{chat.image},</if>
+			<if test="chat.isLook != null">is_look = #{chat.isLook},</if>
+			<if test="chat.isRemoveFa != null">is_remove_fa = #{chat.isRemoveFa},</if>
+			<if test="chat.isRemoveJie != null">is_remove_jie = #{chat.isRemoveJie},</if>
+		</trim>
+		where 1 = 1 
+		<if test="chat.id != null">
+			and id = #{chat.id}
+		</if>
+		<if test="chat.userIdFa != null">
+			and user_id_fa = #{chat.userIdFa}
+		</if>
+		<if test="chat.userIdJie != null">
+			and user_id_jie = #{chat.userIdJie}
+		</if>
+	</update>	
+	<!-- <update id="updateMyChat" parameterType="com.work.pojo.Chat">
+		update chat
+		<trim prefix="set" suffixOverrides=",">
+			<if test="chat.chatSignal != null and chat.chatSignal != ''">chat_signal = #{chat.chatSignal},</if>
+			<if test="chat.content != null and chat.content != ''">content = #{chat.content},</if>
+			<if test="chat.image != null and chat.image != ''">image = #{chat.image},</if>
+			<if test="chat.isLook != null">is_look = #{chat.isLook},</if>
+			<if test="chat.isRemoveFa != null">is_remove_fa = #{chat.isRemoveFa},</if>
+			<if test="chat.isRemoveJie != null">is_remove_jie = #{chat.isRemoveJie},</if>
+		</trim>
+		where id = #{chat.id}
+	</update> -->	
+	<select id="getChatById" resultMap="BaseResultMap">
+		select c.*, f.user_id as user_id_fa, f.nick_name as nick_name_fa, f.header_image as header_image_fa,  
+		j.user_id as user_id_jie, j.nick_name as nick_name_jie, j.header_image as header_image_jie from chat as c 
+		LEFT JOIN user as f ON c.user_id_fa = f.user_id
+		LEFT JOIN user as j ON c.user_id_jie = j.user_id
+		where id = #{id}
+	</select>
+	<delete id="deleteChatById">
+		delete from chat where id = #{id}
+	</delete>
+	
+	<select id="findChatList" resultMap="BaseResultMap">
+		select c.*, f.user_id as user_id_fa, f.nick_name as nick_name_fa, f.header_image as header_image_fa,  
+		j.user_id as user_id_jie, j.nick_name as nick_name_jie, j.header_image as header_image_jie from chat as c 
+		LEFT JOIN user as f ON c.user_id_fa = f.user_id
+		LEFT JOIN user as j ON c.user_id_jie = j.user_id
+		where (c.user_id_fa = #{chat.userIdFa} and c.user_id_jie = #{chat.userIdJie}
+		or c.user_id_fa = #{chat.userIdJie} and c.user_id_jie = #{chat.userIdFa})
+		order by c.create_time asc 
+		<if test="limit != null">
+			limit #{limit}
+		</if>
+		
+	</select>
+	<select id="findChatListCount" resultType="Integer">
+		select count(*) from chat as c
+		where (c.user_id_fa = #{chat.userIdFa} and c.user_id_jie = #{chat.userIdJie}
+		or c.user_id_fa = #{chat.userIdJie} and c.user_id_jie = #{chat.userIdFa})
+	</select>
+	
+	<select id="myChatList" resultMap="BaseResultMap">
+		select c.*, f.user_id as user_id_fa, f.nick_name as nick_name_fa, f.header_image as header_image_fa,  
+		j.user_id as user_id_jie, j.nick_name as nick_name_jie, j.header_image as header_image_jie from chat as c 
+		LEFT JOIN user as f ON c.user_id_fa = f.user_id
+		LEFT JOIN user as j ON c.user_id_jie = j.user_id
+		where c.id in (select MAX(id) from chat where 
+			(user_id_fa = #{chat.userIdFa} and is_remove_fa = '0'
+			or user_id_jie = #{chat.userIdFa} and is_remove_jie = '0')
+			group by chat_signal
+		) order by c.create_time desc
+		 
+	</select>
+
+	
+</mapper>

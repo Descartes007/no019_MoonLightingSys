@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.work.mapper.UserMapper">
+	<resultMap type="com.work.pojo.User" id="BaseResultMap">
+		<id column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="INTEGER" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="pirthday" property="pirthday" jdbcType="VARCHAR" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="header_image" property="headerImage" jdbcType="VARCHAR" />
+		<result column="question" property="question" jdbcType="VARCHAR" />
+		<result column="answer" property="answer" jdbcType="VARCHAR" />
+		<result column="user_category" property="userCategory" jdbcType="VARCHAR" />
+		<result column="user_leven" property="userLeven" jdbcType="INTEGER" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="is_effect" property="isEffect" jdbcType="INTEGER" />
+		<result column="is_work" property="isWork" jdbcType="INTEGER" />
+		<result column="remark" property="remark" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<select id="getUserList" resultMap="BaseResultMap">
+		select * from user where 1=1
+		<if test="user.userId != null">
+			and user_id like CONCAT('%',#{user.userId},'%')
+		</if>
+		<if test="user.phone !=null and user.phone!=''">
+			and phone like CONCAT('%',#{user.phone},'%')
+		</if>
+		<if test="user.userLeven !=null">
+			and user_leven like CONCAT('%',#{user.userLeven},'%')
+		</if>
+		<if test="user.isEffect !=null">
+			and is_effect like CONCAT('%',#{user.isEffect},'%')
+		</if>
+		<if test="user.userCategory !=null and user.userCategory!=''">
+			and user_category like CONCAT('%',#{user.userCategory},'%')
+		</if>
+		order by create_time desc 
+		<if test="page != null and limit != null">
+			limit #{page},#{limit}
+		</if>
+	</select>
+	<select id="getUserListCount" resultType="Integer" parameterType="com.work.pojo.User">
+		select count(*) from user where 1=1
+		<if test="user.userId != null">
+			and user_id like CONCAT('%',#{user.userId},'%')
+		</if>
+		<if test="user.phone !=null and user.phone!=''">
+			and phone like CONCAT('%',#{user.phone},'%')
+		</if>
+		<if test="user.userLeven !=null">
+			and user_leven like CONCAT('%',#{user.userLeven},'%')
+		</if>
+		<if test="user.isEffect !=null">
+			and is_effect like CONCAT('%',#{user.isEffect},'%')
+		</if>
+		<if test="user.userCategory !=null and user.userCategory!=''">
+			and user_category like CONCAT('%',#{user.userCategory},'%')
+		</if>
+	</select>
+	<insert id="addUser" useGeneratedKeys="true" keyProperty="user.userId" parameterType="com.work.pojo.User">
+		insert into
+		user(real_name,nick_name,email,password,sex,phone,pirthday,
+		header_image,question,answer,user_category,user_leven,
+		is_effect,is_work,remark,create_time)
+		values(#{user.realName},#{user.nickName},#{user.email},#{user.password},
+		#{user.sex},#{user.phone},#{user.pirthday},
+		#{user.headerImage},#{user.question},#{user.answer},#{user.userCategory},
+		#{user.userLeven},#{user.isEffect},#{user.isWork},#{user.remark},#{user.createTime})
+	</insert>
+	<update id="updateUser" parameterType="com.work.pojo.User">
+		update user
+		<trim prefix="set" suffixOverrides=",">
+			<if test="user.nickName != null and user.nickName != ''">nick_name = #{user.nickName},</if>
+			<if test="user.realName != null and user.realName != ''">real_name = #{user.realName},</if>
+			<if test="user.password != null and user.password != ''">password = #{user.password},</if>
+			<if test="user.email != null and user.email != ''">email = #{user.email},</if>
+			<if test="user.sex != null">sex = #{user.sex},</if>
+			<if test="user.phone != null and user.phone != ''">phone = #{user.phone},</if>
+			<if test="user.pirthday != null">pirthday = #{user.pirthday},</if>
+			<if test="user.headerImage != null and user.headerImage != ''">header_image = #{user.headerImage},</if>
+			<if test="user.question != null and user.question != ''">question = #{user.question},</if>
+			<if test="user.answer != null and user.answer != ''">answer = #{user.answer},</if>
+			<if test="user.userCategory != null and user.userCategory != ''">user_category = #{user.userCategory},</if>
+			<if test="user.userLeven != null">user_leven = #{user.userLeven},</if>
+			<if test="user.isEffect != null">is_effect = #{user.isEffect},</if>
+			<if test="user.isWork != null">is_work = #{user.isWork},</if>
+			<if test="user.remark != null and user.remark !=''">remark = #{user.remark},</if>
+		</trim>
+		where user_id = #{user.userId}
+	</update>
+	
+	<select id="getUserById" resultMap="BaseResultMap">
+		select * from user where user_id = #{userId}
+	</select>
+	
+	<select id="getUser" resultMap="BaseResultMap">
+		select * from user where 1=1
+		<if test="user.userId != null">
+			and user_id like CONCAT('%',#{user.userId},'%')
+		</if>
+		<if test="user.phone !=null and user.phone!=''">
+			and phone like CONCAT('%',#{user.phone},'%')
+		</if>
+		<if test="user.nickName !=null and user.nickName!=''">
+			and nick_name like CONCAT('%',#{user.nickName},'%')
+		</if>
+		<if test="user.password !=null and user.password!=''">
+			and password like CONCAT('%',#{user.password},'%')
+		</if>
+		<if test="user.userLeven !=null">
+			and user_leven like CONCAT('%',#{user.userLeven},'%')
+		</if>
+		<if test="user.isEffect !=null">
+			and is_effect like CONCAT('%',#{user.isEffect},'%')
+		</if>
+		<if test="user.userCategory !=null and user.userCategory!=''">
+			and user_category like CONCAT('%',#{user.userCategory},'%')
+		</if>
+		
+	</select>
+	<select id="getUserByNickName" resultMap="BaseResultMap">
+		select * from user where nick_name like #{user.nickName}
+	</select>
+</mapper>

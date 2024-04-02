@@ -1,0 +1,151 @@
+
+.page{
+	width: 100%;
+	height: auto;
+}
+/*header begin*/
+.header{
+	width: 100%;
+	height: 140px;
+	background-color:#3F3F3F;
+}
+.header_1{
+	width: 100%;
+	height: 140px;
+	background-color:#3F3F3F;
+	position: fixed;
+	top:-40px;
+	z-index: 100;
+}
+/*header end*/
+/*div_personal  begin*/
+.div_personal{
+	width: 100%;
+	height: 800px;
+	background-color: #eef;
+}
+.div_zhong{
+	width: 1100px;
+	height: 800px;
+	margin: 0 auto;
+}
+
+.div_zhong_l{
+	width: 230px;
+	height: 780px;
+	background-color: #fff;
+	float: left;
+	margin-top: 20px;
+}
+
+/*div_zhong_r   begin*/
+.div_zhong_r{
+	width: 850px;
+	height: 780px;
+	background-color: #fff;
+	float: left;
+	margin-left: 20px;
+	margin-top: 20px;
+}
+.div_zhong_rz{
+	width: 770px;
+	height: 570px;
+	margin-left: 40px;
+	margin-top: 40px;
+	background-color: #eee;
+}
+
+/*鍐呭鍖�  begin*/
+.ul_span_z_nei{
+	width: 770px;
+	height: auto;
+}
+.ul_span_z_nei li{
+	width: 770px;
+	height: 60px;
+	border-bottom: 2px solid #fff;
+}
+.div_z_t{
+	width: 50px;
+	height: 50px;
+	float: left;
+	margin-top: 5px;
+	margin-left: 10px;
+	position: relative;
+}
+.span_z_t{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 5;
+}
+.span_z_t img{
+	width: 50px;
+	height: 50px;
+	border-radius: 25px;
+}
+.div_z_n{
+	width: 700px;
+	height: 50px;
+	float: left;
+	margin-top: 5px;
+	margin-left: 10px;
+}
+.div_z_n span{
+	width: 100;
+	height: 35px;
+	float: left;
+	margin-top: 11px;
+	margin-left: 140px;
+	color: #999;
+	font-size: 18px;
+	font-weight: 400;
+	cursor: pointer;
+}
+.div_z_n .span_z_n{
+	width: 450px;
+	height: 35px;
+	float: left;
+	margin-top: 11px;
+	margin-left: 0px;
+	color: #333;
+	font-size: 18px;
+	font-weight: 400;
+	cursor: pointer;
+}
+
+/*鍐呭鍖�  end*/
+
+/*鍒嗛〉  begin*/
+.ul_fenye{
+	width: 400px;
+	height: 40px;
+	margin-top: 20px;
+	margin-left: 180px;
+}
+.ul_fenye li{
+	width: 80px;
+	height: 40px;
+	display: inline-block;
+	float: left;
+}
+.ul_fenye li span{
+	width: 80px;
+	height: 30px;
+	display: block;
+	margin-top: 7px;
+	color: #333;
+}
+/*鍒嗛〉  end*/
+/*div_zhong_r   end*/
+
+/*banquan  begin*/
+.footer{
+	width: 100%;
+	height: 190px;
+	background-color: #eef;
+	padding-top: 50px;
+}
+/*banquan  end*/

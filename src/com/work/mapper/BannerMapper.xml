@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.work.mapper.BannerMapper">
+	<resultMap type="com.work.pojo.Banner" id="BaseResultMap">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="is_effect" property="isEffect" jdbcType="INTEGER" />
+		<result column="order_status" property="orderStatus" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="getBannerList" resultMap="BaseResultMap">
+		select * from banner b 
+		LEFT JOIN user u ON b.user_id = u.user_id
+		where 1=1
+		<if test="banner.id != null">
+			and id like CONCAT('%',#{banner.id},'%')
+		</if>
+		<if test="banner.isEffect !=null">
+			and b.is_effect like CONCAT('%',#{banner.isEffect},'%')
+		</if>
+		<if test="banner.title !=null and banner.title!=''">
+			and title like CONCAT('%',#{banner.title},'%')
+		</if>
+		order by b.order_status asc 
+		<if test="page != null and limit != null">
+			limit #{page},#{limit}
+		</if>
+	</select>
+	<select id="getBannerListCount" resultType="Integer">
+		select count(*) from banner  where 1=1
+		<if test="banner.id != null">
+			and id like CONCAT('%',#{banner.id},'%')
+		</if>
+		<if test="banner.isEffect !=null">
+			and is_effect like CONCAT('%',#{banner.isEffect},'%')
+		</if>
+		<if test="banner.title !=null and banner.title!=''">
+			and title like CONCAT('%',#{banner.title},'%')
+		</if>
+	</select>
+	<insert id="addBanner" useGeneratedKeys="true" keyProperty="banner.id" parameterType="com.work.pojo.Banner">
+		insert into
+		banner(user_id,title,is_effect,image,order_status,create_time)
+		values(#{banner.userId},#{banner.title},#{banner.isEffect},
+		#{banner.image},#{banner.orderStatus},#{banner.createTime})
+	</insert>
+	<update id="updateBanner" parameterType="com.work.pojo.Banner">
+		update banner
+		<trim prefix="set" suffixOverrides=",">
+			<if test="banner.title != null and banner.title != ''">title = #{banner.title},</if>
+			<if test="banner.isEffect != null">is_effect = #{banner.isEffect},</if>
+			<if test="banner.image != null and banner.image != ''">image = #{banner.image},</if>
+			<if test="banner.orderStatus != null">order_status = #{banner.orderStatus},</if>
+		</trim>
+		where id = #{banner.id}
+	</update>
+	<select id="getBannerById" resultMap="BaseResultMap">
+		select * from banner where id = #{id}
+	</select>	
+	
+</mapper>

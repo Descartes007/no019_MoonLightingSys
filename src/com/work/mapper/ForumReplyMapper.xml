@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.work.mapper.ForumReplyMapper">
+	<resultMap type="com.work.pojo.ForumReply" id="BaseResultMap">
+		<id column="reply_id" property="replyId" jdbcType="INTEGER" />
+		<result column="reply_content" property="replyContent" jdbcType="VARCHAR" />
+		<result column="reply_image" property="replyImage" jdbcType="VARCHAR" />
+		<result column="status" property="status" jdbcType="INTEGER" />
+		<result column="reply_time" property="replyTime" jdbcType="TIMESTAMP" />
+
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+		<result column="header_image" property="headerImage" jdbcType="VARCHAR" />
+		
+		<result column="forum_id" property="forumId" jdbcType="INTEGER" />
+	</resultMap>
+	<select id="getForumReplyList" resultMap="BaseResultMap">
+		select * from forum_reply r 
+		LEFT JOIN user u ON r.user_id = u.user_id
+		LEFT JOIN forum f ON r.forum_id = f.forum_id
+		where 1=1
+		<if test="forumReply.replyId != null">
+			and reply_id like CONCAT('%',#{forumReply.replyId},'%')
+		</if>
+		<if test="forumReply.forumId != null">
+			and r.forum_id like CONCAT('%',#{forumReply.forumId},'%')
+		</if>
+		<if test="forumReply.status != null">
+			and r.status like CONCAT('%',#{forumReply.status},'%')
+		</if>
+		order by r.reply_time asc 
+		<if test="page != null and limit != null">
+			limit #{page},#{limit}
+		</if>
+	</select>
+	<select id="getForumReplyListCount" resultType="Integer">
+		select count(*) from forum_reply  where 1=1
+		<if test="forumReply.replyId != null">
+			and reply_id like CONCAT('%',#{forumReply.replyId},'%')
+		</if>
+		<if test="forumReply.forumId != null">
+			and forum_id like CONCAT('%',#{forumReply.forumId},'%')
+		</if>
+	</select>
+	<insert id="addForumReply" useGeneratedKeys="true" keyProperty="forumReply.replyId" parameterType="com.work.pojo.ForumReply">
+		insert into
+		forum_reply(user_id,forum_id,reply_content,reply_image,reply_time)
+		values(#{forumReply.userId},#{forumReply.forumId},#{forumReply.replyContent},
+		#{forumReply.replyImage},#{forumReply.replyTime})
+	</insert>
+	<update id="updateForumReply" parameterType="com.work.pojo.ForumReply">
+		update forum_reply
+		<trim prefix="set" suffixOverrides=",">
+			<if test="forumReply.replyContent != null and forumReply.replyContent != ''">reply_content = #{forumReply.replyContent},</if>
+			<if test="forumReply.replyImage != null and forumReply.replyImage != ''">reply_image = #{forumReply.replyImage},</if>
+			<if test="forumReply.status != null">status = #{forumReply.status},</if>
+		</trim>
+		where 1=1
+		<if test="forumReply.replyId != null">
+			and reply_id = #{forumReply.replyId}
+		</if>
+		<if test="forumReply.forumId != null">
+			and forum_id = #{forumReply.forumId}
+		</if>
+		
+	</update>
+	<select id="getForumReplyById" resultMap="BaseResultMap">
+		select * from forum_reply where reply_id = #{replyId}
+	</select>	
+		
+	<delete id="deleteForumReply">
+		delete from forum_reply where reply_id = #{replyId}
+	</delete>
+</mapper>

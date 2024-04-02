@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.work.mapper.WorkMapper">
+	
+	<resultMap type="com.work.pojo.Work" id="BaseResultMap">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="work_category" property="workCategory" jdbcType="VARCHAR" />
+		<result column="is_effect" property="isEffect" jdbcType="INTEGER" />
+		<result column="is_auditing" property="isAuditing" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="real_name" property="realName" jdbcType="VARCHAR" />
+		<result column="header_image" property="headerImage" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="getWorkList" resultMap="BaseResultMap">
+		select * from work w 
+		LEFT JOIN user u ON w.user_id = u.user_id
+		where 1=1
+		<if test="work.id != null">
+			and id like CONCAT('%',#{work.id},'%')
+		</if>
+		<if test="work.userId != null">
+			and w.user_id like CONCAT('%',#{work.userId},'%')
+		</if>
+		<if test="work.isEffect !=null">
+			and w.is_effect like CONCAT('%',#{work.isEffect},'%')
+		</if>
+		<if test="work.isAuditing !=null">
+			and w.is_auditing like CONCAT('%',#{work.isAuditing},'%')
+		</if>
+		<if test="work.workCategory !=null and work.workCategory!=''">
+			and work_category like CONCAT('%',#{work.workCategory},'%')
+		</if>
+		order by w.create_time desc 
+		<if test="page != null and limit != null">
+			limit #{page},#{limit}
+		</if>
+	</select>
+	<select id="getWorkListCount" resultType="Integer">
+		select count(*) from work  where 1=1
+		<if test="work.id != null">
+			and id like CONCAT('%',#{work.id},'%')
+		</if>
+		<if test="work.userId != null">
+			and user_id like CONCAT('%',#{work.userId},'%')
+		</if>
+		<if test="work.isEffect !=null">
+			and is_effect like CONCAT('%',#{work.isEffect},'%')
+		</if>
+		<if test="work.isAuditing !=null">
+			and is_auditing like CONCAT('%',#{work.isAuditing},'%')
+		</if>
+		<if test="work.workCategory !=null and work.workCategory!=''">
+			and work_category like CONCAT('%',#{work.workCategory},'%')
+		</if>
+	</select>
+	<insert id="addWork" useGeneratedKeys="true" keyProperty="work.id" parameterType="com.work.pojo.Work">
+		insert into
+		work(user_id,title,content,phone,
+		image,work_category,create_time)
+		values(#{work.userId},#{work.title},#{work.content},
+		#{work.phone},#{work.image},#{work.workCategory},#{work.createTime})
+	</insert>
+	<update id="updateWork" parameterType="com.work.pojo.Work">
+		update work
+		<trim prefix="set" suffixOverrides=",">
+			<if test="work.title != null and work.title != ''">title = #{work.title},</if>
+			<if test="work.content != null and work.content != ''">content = #{work.content},</if>
+			<if test="work.phone != null and work.phone != ''">phone = #{work.phone},</if>
+			<if test="work.image != null and work.image != ''">image = #{work.image},</if>
+			<if test="work.workCategory != null and work.workCategory != ''">work_category = #{work.workCategory},</if>
+			<if test="work.isEffect != null">is_effect = #{work.isEffect},</if>
+			<if test="work.isAuditing != null">is_auditing = #{work.isAuditing},</if>
+		</trim>
+		where id = #{work.id}
+	</update>
+	
+	<select id="getWorkById" resultMap="BaseResultMap">
+		select * from work w 
+		LEFT JOIN user u ON w.user_id = u.user_id where id = #{id}
+	</select>
+	
+</mapper>
+	

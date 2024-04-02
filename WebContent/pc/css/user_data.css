@@ -1,0 +1,103 @@
+
+.top{
+	width: 100%;
+	height: 120px;
+	background-color: #52cbc5;
+}
+.div_logo{
+	width: 190px;
+	height: 70px;
+	float: left;
+	margin-left: 100px;
+	margin-top: 40px;
+	background-color: #fff;
+	padding-top: 10px;
+	padding-left: 10px;
+	border-radius: 3px;
+}
+.div_logo img{
+	height: 50px;
+}
+/*top  结束*/
+
+.data{
+	width: 100%;
+	height: 800px;
+	background-color: #52cbc5;
+}
+.data_zhong{
+	width: 1100px;
+	height: 800px;
+	background-color: #52cbc5;
+	margin: 0 auto;
+}
+.data_z{
+	width: 540px;
+	height: 450px;
+	background-color: #fff;
+	float: left;
+	margin-top: 100px;
+	margin-left: 280px;
+	border-radius: 10px;
+}
+.div_data{
+	width: 500px;
+	height: 460px;
+	margin-top: 20px;
+	margin-left: 20px;
+}
+.div_tou{
+	width: 500px;
+	height: 150px;
+	position: relative;
+}
+.div_t{
+	width: 120px;
+	height: 120px;
+	position: absolute;
+	top: 0px;
+	left: 190px;
+	z-index: 5;
+}
+.div_t img{
+	width: 120px;
+	height: 120px;
+	border-radius: 60px;
+}
+.div_z{
+	width: 500px;
+	height: 50px;
+}
+.div_z span{
+	display: inline-block;
+	width: 250px;
+	height: 30px;
+	float: left;
+	font-size: 18px;
+	color: #333;
+}
+.div_e span{
+	display: inline-block;
+	width: 350px;
+	height: 30px;
+	float: left;
+	font-size: 18px;
+	color: #333;
+}
+.input_chat{
+	display: inline-block;
+	width: 140px;
+	height: 50px;
+	float: left;
+	margin-left: 180px;
+	font-size: 18px;
+	color: #333;
+	border-radius: 3%;
+	cursor: pointer;
+}
+
+.bottom{
+	width: 100%;
+	height: 200px;
+	background-color: #52cbc5;
+}

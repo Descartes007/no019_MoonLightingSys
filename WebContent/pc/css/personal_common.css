@@ -1,0 +1,84 @@
+.div_zhong_l{
+	width: 230px;
+	height: 780px;
+	background-color: #fff;
+	float: left;
+	margin-top: 20px;
+}
+.div_l_t{
+	width: 100px;
+	height: 100px;
+	float: left;
+	margin-top: 20px;
+	margin-left: 65px;
+	position: relative;
+	cursor: pointer;
+}
+.div_l_t .div_t{
+	width: 100px;
+	height: 100px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 5;
+}
+.div_t img{
+	width: 100px;
+	height: 100px;
+	border-radius: 50px;
+}
+.ul_l_l{
+	width: 210px;
+	height: 280px;
+	float: left;
+	margin-top: 20px;
+	margin-left: 10px;
+}
+.ul_l_l li{
+	width: 210px;
+	height: 40px;
+	float: left;
+}
+.span_1{
+	display: inline-block;
+	width: 190px;
+	height: 40px;
+	color: #666;
+	font-weight: 400;
+	font-size: 18px;
+	float: left;
+	text-align: center;
+}
+.span_e{
+	display: block;
+	width: 60px;
+	height: 40px;
+	color: #333;
+	font-weight: 400;
+	font-size: 18px;
+	float: left;
+}
+.span_f{
+	display: block;
+	width: 150px;
+	height: 40px;
+	color: #333;
+	font-weight: 400;
+	font-size: 16px;
+	float: left;
+	word-break: break-all;
+	line-height: 18px;
+}
+.span_0{
+	color: #999;
+	text-align: left;
+}
+.span_l_l{
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	background-color: red;
+	border-radius: 50%;
+	float: left;
+	margin-top: 10px;
+}

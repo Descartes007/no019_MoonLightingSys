@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.work.mapper.SystemUpsetMapper">
+	<resultMap type="com.work.pojo.SystemUpset" id="BaseResultMap">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="company" property="company" jdbcType="VARCHAR" />
+		<result column="company_addres" property="companyAddres" jdbcType="VARCHAR" />
+		<result column="qq" property="qq" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="we_chat" property="weChat" jdbcType="VARCHAR" />
+		<result column="company_logo" property="companyLogo" jdbcType="VARCHAR" />
+		<result column="welcom_text" property="welcomText" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+	</resultMap>
+	<select id="getSystemUpsetList" resultMap="BaseResultMap">
+		select * from system_upset 
+		where 1=1
+		<if test="systemUpset.id != null">
+			and id like CONCAT('%',#{systemUpset.id},'%')
+		</if>
+		order by create_time desc 
+		<if test="page != null and limit != null">
+			limit #{page},#{limit}
+		</if>
+	</select>
+	<select id="getSystemUpsetListCount" resultType="Integer">
+		select count(*) from system_upset  where 1=1
+		<if test="systemUpset.id != null">
+			and id like CONCAT('%',#{systemUpset.id},'%')
+		</if>
+	</select>
+	<insert id="addSystemUpset" useGeneratedKeys="true" keyProperty="systemUpset.id" parameterType="com.work.pojo.SystemUpset">
+		insert into
+		system_upset(user_id,qq,phone,company,we_chat,welcom_text,company_logo,create_time,company_addres)
+		values(#{systemUpset.userId},#{systemUpset.qq},#{systemUpset.phone},
+		#{systemUpset.company},#{systemUpset.weChat},#{systemUpset.welcomText},
+		#{systemUpset.companyLogo},#{systemUpset.createTime},#{systemUpset.companyAddres})
+	</insert>
+	<update id="updateSystemUpset" parameterType="com.work.pojo.SystemUpset">
+		update system_upset
+		<trim prefix="set" suffixOverrides=",">
+			<if test="systemUpset.phone != null and systemUpset.phone != ''">phone = #{systemUpset.phone},</if>
+			<if test="systemUpset.qq != null and systemUpset.qq != ''">qq = #{systemUpset.qq},</if>
+			<if test="systemUpset.company != null and systemUpset.company != ''">company = #{systemUpset.company},</if>
+			<if test="systemUpset.companyAddres != null and systemUpset.companyAddres != ''">company_addres = #{systemUpset.companyAddres},</if>
+			<if test="systemUpset.weChat != null and systemUpset.weChat != ''">we_chat = #{systemUpset.weChat},</if>
+			<if test="systemUpset.welcomText != null and systemUpset.welcomText != ''">welcom_text = #{systemUpset.welcomText},</if>
+			<if test="systemUpset.companyLogo != null and systemUpset.companyLogo != ''">company_logo = #{systemUpset.companyLogo},</if>
+		</trim>
+		where id = #{systemUpset.id}
+	</update>
+	<select id="getSystemUpsetById" resultMap="BaseResultMap">
+		select * from system_upset where id = #{id}
+	</select>	
+	<delete id="deleteSystemUpsetById">
+		delete from system_upset where id = #{id}
+	</delete>
+</mapper>

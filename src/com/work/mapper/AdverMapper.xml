@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.work.mapper.AdverMapper">
+	<resultMap type="com.work.pojo.Adver" id="BaseResultMap">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="content" property="content" jdbcType="VARCHAR" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
+		<result column="position" property="position" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+		<result column="user_id" property="userId" jdbcType="INTEGER" />
+		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="getAdverList" resultMap="BaseResultMap">
+		select * from adver f 
+		LEFT JOIN user u ON f.user_id = u.user_id
+		where 1=1
+		<if test="adver.id != null">
+			and id like CONCAT('%',#{adver.id},'%')
+		</if>
+		<if test="adver.position !=null">
+			and position like CONCAT('%',#{adver.position},'%')
+		</if>
+		<if test="adver.title !=null and adver.title!=''">
+			and title like CONCAT('%',#{adver.title},'%')
+		</if>
+		order by f.create_time desc 
+		<if test="page != null and limit != null">
+			limit #{page},#{limit}
+		</if>
+	</select>
+	<select id="getAdverListCount" resultType="Integer">
+		select count(*) from adver  where 1=1
+		<if test="adver.id != null">
+			and id like CONCAT('%',#{adver.id},'%')
+		</if>
+		<if test="adver.position !=null">
+			and position like CONCAT('%',#{adver.position},'%')
+		</if>
+		<if test="adver.title !=null and adver.title!=''">
+			and title like CONCAT('%',#{adver.title},'%')
+		</if>
+	</select>
+	<insert id="addAdver" useGeneratedKeys="true" keyProperty="adver.id" parameterType="com.work.pojo.Adver">
+		insert into
+		adver(user_id,title,content,image,position,create_time)
+		values(#{adver.userId},#{adver.title},#{adver.content},
+		#{adver.image},#{adver.position},#{adver.createTime})
+	</insert>
+	<update id="updateAdver" parameterType="com.work.pojo.Adver">
+		update adver
+		<trim prefix="set" suffixOverrides=",">
+			<if test="adver.title != null and adver.title != ''">title = #{adver.title},</if>
+			<if test="adver.content != null and adver.content != ''">content = #{adver.content},</if>
+			<if test="adver.image != null and adver.image != ''">image = #{adver.image},</if>
+			<if test="adver.position != null">position = #{adver.position},</if>
+		</trim>
+		where id = #{adver.id}
+	</update>
+	<select id="getAdverById" resultMap="BaseResultMap">
+		select * from adver where id = #{id}
+	</select>	
+	<delete id="deleteAdverById">
+		delete from adver where id = #{id}
+	</delete>
+</mapper>

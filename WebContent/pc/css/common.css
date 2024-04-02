@@ -1,0 +1,54 @@
+/*公共样式--开始*/
+html, body, div, ul, li, h1, h2, h3, h4, h5, h6, p, dl, dt, dd, ol, form, input, textarea, th, td, select,img {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+*{box-sizing: border-box;}
+
+body {
+    font-family: "Microsoft YaHei";
+    font-size:14px;
+    color:#333;
+}
+
+ul,ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #333333;
+}
+
+input, textarea {
+    outline: none;
+} 
+
+[v-cloak] {
+    display: none;
+}
+
+.flex-box::before, .flex-box::after {
+    display: block;
+    clear: both;
+    height: 0;
+    content: "";
+}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: #999;
+}
+
+input:-moz-placeholder, textarea:-moz-placeholder {
+    color: #999;
+}
+
+input::-moz-placeholder, textarea::-moz-placeholder {
+    color: #999;
+}
+
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+    color: #999;
+}

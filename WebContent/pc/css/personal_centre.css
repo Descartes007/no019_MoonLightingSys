@@ -1,0 +1,268 @@
+.page{
+	width: 100%;
+	height: auto;
+	position: absolute;
+	z-index: 5;
+}
+
+/*div_personal  begin*/
+.div_personal{
+	width: 100%;
+	height: 800px;
+	background-color: #eef;
+}
+.div_zhong{
+	width: 1100px;
+	height: 800px;
+	margin: 0 auto;
+}
+
+.div_zhong_l{
+	width: 230px;
+	height: 780px;
+	background-color: #fff;
+	float: left;
+	margin-top: 20px;
+}
+
+/*div_zhong_r   begin*/
+.div_zhong_r{
+	width: 850px;
+	height: 780px;
+	background-color: #fff;
+	float: left;
+	margin-left: 20px;
+	margin-top: 20px;
+}
+.ul_zhong_rz{
+	width: 770px;
+	height: 700px;
+	margin-left: 40px;
+	margin-top: 40px;
+}
+.ul_zhong_rz li{
+	width: 770px;
+	height: 50px;
+}
+.ul_zhong_rz li span{
+	display: block;
+	width: 380px;
+	height: 50px;
+	float: left;
+	color: #999;
+	font-size: 20px;
+	font-weight: 400;
+	word-break: break-all;
+}
+.li_rz{
+	margin-top: 50px;
+}
+.li_rz input{
+	width: 100px;
+	height: 40px;
+	background-color: #ccc;
+	margin-left: 100px;
+	color: #666;
+	font-size: 18px;
+	font-weight: 400;
+	cursor: pointer;
+}
+
+/*div_zhong_r   end*/
+
+/*banquan  begin*/
+.footer{
+	width: 100%;
+	height: 190px;
+	background-color: #eef;
+	padding-top: 50px;
+}
+/*banquan  end*/
+
+/*div_wai_zi    begin*/
+.div_wai_zi{
+	width: 100%;
+	height: 1000px;
+	background-color:rgba(0,0,0,0.5);
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: block;
+	z-index: 0; 
+}
+.div_wai_ziz{
+	width: 1100px;
+	height: 800px;
+	margin: 0 auto;
+}
+.div_wai_ziz{
+	width: 1100px;
+	height: 800px;
+	margin: 0 auto;
+}
+.zhu_z{
+	width: 400px;
+	background-color: #fff; 
+	margin-top: 160px;
+	margin-left: 350px;
+	border-radius: 5px;
+	padding-top: 20px;
+}
+.form_zhu{
+	width: 360px;
+	margin-left: 20px;
+	padding-bottom: 20px;
+}
+.form_zhu h2{
+	color: #333;
+}
+.form_zhu span{
+	display: inline-block;
+	color: #333;
+	font-size: 16px;
+	font-weight: 600;
+	width: 100px;
+	height: 25px;
+	float: left;
+}
+.form_zhu .msg{
+	display: inline-block;
+	color: red;
+	font-size: 16px;
+	font-weight: 400;
+	width: 260px;
+	height: 23px;
+	margin-left: 100px;
+}
+.form_zhu .in{
+	display: inline-block;
+	color: #333;
+	font-size: 16px;
+	font-weight: 400;
+	width: 250px;
+	height: 25px;
+	background-color: #ccc;
+	margin-top: -5px;
+	padding-left: 10px;
+}
+.form_zhu .input_tou{
+	display: inline-block;
+	width: 70px;
+	height: 25px;
+	float: left;
+}
+.form_zhu ul{
+	width: 250px;
+	margin-top: 20px;
+	margin-left: 100px;
+}
+.form_zhu ul li{
+	width: 250px;
+}
+.form_zhu ul li img{
+	height: 150px;
+	max-width: 250px;
+}
+.form_zhu .input_quxiao{
+	display: block;
+	width: 80px;
+	height: 30px;
+	background-color: #ccc;
+	float: left;
+	margin-top: 30px;
+	margin-left: 70px;
+	cursor: pointer;
+}
+.form_zhu .input_baocun{
+	display: block;
+	width: 80px;
+	height: 30px;
+	background-color: #ccc;
+	float: left;
+	margin-top: 30px;
+	margin-left: 60px;
+	cursor: pointer;
+}
+
+/*div_wai_zi    end*/
+
+/*div_wai_mi    begin*/
+.div_wai_mi{
+	width: 100%;
+	height: 1000px;
+	background-color:rgba(0,0,0,0.5);
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	display: block;
+	z-index: 0; 
+}
+.zhu_password_z{
+	width: 400px;
+	height: 230px;
+	background-color: #fff;
+	margin-top: 160px;
+	margin-left: 350px;
+	border-radius: 5px;
+	padding-top: 20px;
+}
+.form_password{
+	width: 360px;
+	height: 210px;
+	margin-left: 20px;
+}
+.form_password h2{
+	color: #333;
+}
+.form_password span{
+	display: inline-block;
+	color: #333;
+	font-size: 16px;
+	font-weight: 600;
+	width: 100px;
+	height: 25px;
+	float: left;
+}
+.form_password .msg{
+	display: inline-block;
+	color: red;
+	font-size: 16px;
+	font-weight: 400;
+	width: 260px;
+	height: 23px;
+	margin-left: 100px;
+}
+.form_password .in{
+	display: inline-block;
+	color: #333;
+	font-size: 16px;
+	font-weight: 400;
+	width: 250px;
+	height: 25px;
+	background-color: #ccc;
+	margin-top: -5px;
+	padding-left: 10px;
+}
+.input_pass_quxiao{
+	display: block;
+	width: 80px;
+	height: 30px;
+	background-color: #ccc;
+	float: left;
+	margin-top: 10px;
+	margin-left: 70px;
+	cursor: pointer;
+}
+.input_pass_baocun{
+	display: block;
+	width: 80px;
+	height: 30px;
+	background-color: #ccc;
+	float: left;
+	margin-top: 10px;
+	margin-left: 70px;
+	cursor: pointer;
+}
+
+/*div_wai_mi    end*/
+

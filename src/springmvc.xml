@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd 
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd 
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd ">
+
+	<!-- 配置Controller扫描 -->
+	<context:component-scan base-package="com.work.controller" />
+
+	<context:property-placeholder location="classpath:resource.properties" />
+
+	<!-- 配置注解驱动 -->
+	<mvc:annotation-driven />
+
+	<!-- 对静态资源放行 -->
+	<mvc:resources location="/pc/" mapping="/pc/**" />
+	<mvc:resources location="/server/" mapping="/server/**" />
+	<mvc:resources location="/headerImages/" mapping="/headerImages/**" />
+	<mvc:resources location="/workImages/" mapping="/workImages/**" />
+	<mvc:resources location="/forumImages/" mapping="/forumImages/**" />
+	<mvc:resources location="/chatImages/" mapping="/chatImages/**" />
+	<mvc:resources location="/mailboxImages/" mapping="/mailboxImages/**" />
+	<mvc:resources location="/systemImages/" mapping="/systemImages/**" />
+	<!-- 配置视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 前缀 -->
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<!-- 后缀 -->
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<!-- 配置拦截器 -->
+	<mvc:interceptors>
+		<bean class="com.work.common.utils.LoginInterceptor"></bean>
+	</mvc:interceptors>
+	
+	<!-- 配置文件上传解析器 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8"></property>
+		<!-- 约束大小5M -->
+		<property name="maxUploadSize" value="5097152"></property>
+	</bean>
+</beans>
+	
